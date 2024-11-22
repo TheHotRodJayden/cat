@@ -41,7 +41,7 @@ async function getCatFactAndImage() {
 
             // Create and style the error message
             const errorMessage = document.createElement('p');
-            errorMessage.textContent = 'There was an issue fetching content. It may be due to spamming the button too much. I'll let you retry in a few seconds...';
+            errorMessage.textContent = 'There was an issue fetching content. It may be due to spamming the button too much. You can retry in a few seconds...';
             errorMessage.style.color = 'red'; // Ensure the text is red
             errorMessage.style.fontWeight = 'bold'; // Make it bold
             errorMessage.style.fontSize = '18px'; // Increase font size for readability
