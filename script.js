@@ -1,6 +1,7 @@
 document.getElementById('catButton').addEventListener('click', getCatFactAndImage);
 
 async function getCatFactAndImage() {
+    const button = document.getElementById('catButton');
     try {
         // Fetch a random cat fact
         const factResponse = await fetch('https://catfact.ninja/fact');
@@ -16,6 +17,13 @@ async function getCatFactAndImage() {
         catImage.style.display = 'block'; // Show the image
     } catch (error) {
         console.error('Error fetching cat data:', error);
-        document.getElementById('catFact').textContent = 'Could not fetch a cat fact or image at this time.';
+        document.getElementById('catFact').textContent = 'Unable to fetch content! Please reload.';
+        
+        // Replace the button with the error message
+        button.style.display = 'none';
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Unable to fetch content! Please reload.';
+        errorMessage.style.color = 'red';
+        button.parentNode.appendChild(errorMessage);
     }
 }
