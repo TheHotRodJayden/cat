@@ -3,7 +3,7 @@ document.getElementById('catButton').addEventListener('click', getCatFactAndImag
 async function getCatFactAndImage() {
     const button = document.getElementById('catButton');
 
-    // Timeout promise
+    // Timeout promise (2 seconds)
     const timeout = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Request timed out')), 2000)
     );
@@ -24,20 +24,22 @@ async function getCatFactAndImage() {
         ]);
         const imageData = await imageResponse.json();
         const catImage = document.getElementById('catImage');
-
+        
         catImage.src = imageData[0].url;
         catImage.style.display = 'block'; // Show the image
     } catch (error) {
         console.error('Error fetching cat data:', error);
 
         // Replace the button with an error message
-        const container = document.querySelector('.container');
-        button.remove(); // Remove the button
+        button.style.display = 'none'; // Hide the button
 
         const errorMessage = document.createElement('p');
         errorMessage.textContent = 'Unable to fetch content! Please reload.';
         errorMessage.style.color = 'red';
         errorMessage.style.fontWeight = 'bold';
+        
+        // Append error message below the h1 tag (after the button)
+        const container = document.querySelector('.container');
         container.appendChild(errorMessage); // Append the error message to the container
     }
 }
