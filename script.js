@@ -63,5 +63,3 @@ async function getCatFactAndImage() {
         }
     }
 }
-
-}
