@@ -1,7 +1,12 @@
 document.getElementById('catButton').addEventListener('click', getCatFactAndImage);
 
+let errorDisplayed = false; // Flag to track if the error message is already displayed
+
 async function getCatFactAndImage() {
     const button = document.getElementById('catButton');
+
+    // If the error message is already displayed, do nothing
+    if (errorDisplayed) return;
 
     // Timeout promise (2 seconds)
     const timeout = new Promise((_, reject) =>
@@ -30,16 +35,22 @@ async function getCatFactAndImage() {
     } catch (error) {
         console.error('Error fetching cat data:', error);
 
-        // Replace the button with an error message
+        // Replace the button with an error message only once
         button.style.display = 'none'; // Hide the button
 
+        // Create and style the error message
         const errorMessage = document.createElement('p');
         errorMessage.textContent = 'Unable to fetch content! Please reload.';
-        errorMessage.style.color = 'red';
-        errorMessage.style.fontWeight = 'bold';
-        
-        // Append error message below the h1 tag (after the button)
+        errorMessage.style.color = 'red'; // Ensure the text is red
+        errorMessage.style.fontWeight = 'bold'; // Make it bold
+        errorMessage.style.fontSize = '18px'; // Increase font size for readability
+        errorMessage.style.marginTop = '20px'; // Add margin above
+
+        // Append the error message to the container (below the heading)
         const container = document.querySelector('.container');
         container.appendChild(errorMessage); // Append the error message to the container
+
+        // Set the flag to prevent further error messages
+        errorDisplayed = true;
     }
 }
