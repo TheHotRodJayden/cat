@@ -24,20 +24,20 @@ async function getCatFactAndImage() {
         ]);
         const imageData = await imageResponse.json();
         const catImage = document.getElementById('catImage');
-        
+
         catImage.src = imageData[0].url;
         catImage.style.display = 'block'; // Show the image
     } catch (error) {
         console.error('Error fetching cat data:', error);
 
-        // Update fact text with error
-        document.getElementById('catFact').textContent = 'Unable to fetch content! Please reload.';
-        
-        // Replace the button with the error message
-        button.style.display = 'none';
+        // Replace the button with an error message
+        const container = document.querySelector('.container');
+        button.remove(); // Remove the button
+
         const errorMessage = document.createElement('p');
         errorMessage.textContent = 'Unable to fetch content! Please reload.';
         errorMessage.style.color = 'red';
-        button.parentNode.appendChild(errorMessage);
+        errorMessage.style.fontWeight = 'bold';
+        container.appendChild(errorMessage); // Append the error message to the container
     }
 }
