@@ -36,21 +36,32 @@ async function getCatFactAndImage() {
         console.error('Error fetching cat data:', error);
 
         // Replace the button with an error message only once
-        button.style.display = 'none'; // Hide the button
+        if (!errorDisplayed) {
+            button.style.display = 'none'; // Hide the button
 
-        // Create and style the error message
-        const errorMessage = document.createElement('p');
-        errorMessage.textContent = 'Unable to fetch content! Please reload.';
-        errorMessage.style.color = 'red'; // Ensure the text is red
-        errorMessage.style.fontWeight = 'bold'; // Make it bold
-        errorMessage.style.fontSize = '18px'; // Increase font size for readability
-        errorMessage.style.marginTop = '20px'; // Add margin above
+            // Create and style the error message
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'There was an issue fetching content. It may be due to spamming the button too much. I'll let you retry in a few seconds...';
+            errorMessage.style.color = 'red'; // Ensure the text is red
+            errorMessage.style.fontWeight = 'bold'; // Make it bold
+            errorMessage.style.fontSize = '18px'; // Increase font size for readability
+            errorMessage.style.marginTop = '20px'; // Add margin above
 
-        // Append the error message to the container (below the heading)
-        const container = document.querySelector('.container');
-        container.appendChild(errorMessage); // Append the error message to the container
+            // Append the error message to the container (below the heading)
+            const container = document.querySelector('.container');
+            container.appendChild(errorMessage); // Append the error message to the container
 
-        // Set the flag to prevent further error messages
-        errorDisplayed = true;
+            // Set the flag to prevent further error messages
+            errorDisplayed = true;
+
+            // Reset the error state after 5 seconds (allow retry)
+            setTimeout(() => {
+                errorDisplayed = false; // Reset flag
+                button.style.display = 'inline-block'; // Show the button again
+                errorMessage.remove(); // Remove the error message
+            }, 5000); // Reset after 5 seconds
+        }
     }
+}
+
 }
